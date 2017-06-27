@@ -1,0 +1,25 @@
+{
+  "name": "mean-angular2",
+  "version": "1.0.0",
+  "description": "mean-stack-web-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishwaszambre/mean-stack-angular-2.git"
+  },
+  "keywords": [
+    "mean",
+    "stack",
+    "angular2",
+    "blog"
+  ],
+  "author": "vishwas-zambre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishwaszambre/mean-stack-angular-2/issues"
+  },
+  "homepage": "https://github.com/vishwaszambre/mean-stack-angular-2#readme"
+}
