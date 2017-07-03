@@ -28,9 +28,14 @@ let usernameLengthChecker = (username) => {
     if (!username) {
         return false;
     } else {
-        return true;
+        if (username.length < 3 || username.length > 15) {
+            return false
+        } else {
+            return true;
+        }
+
     }
-}
+};
 
 let validUsername = (username) => {
     if (!username) {
@@ -41,6 +46,34 @@ let validUsername = (username) => {
     }
 };
 
+let passwordLengthChecker = () => {
+    if (!password) {
+        return false;
+    } else {
+        if (password.length < 8 || password.length < 25) {
+            return false
+        }
+    }
+}
+
+let validPassword = () => {
+    if (!password) {
+        return false;
+    } else {
+        const regExp = new RegExp(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[/d])(?=.*?[\W]).{8,35}$/);
+        return regExp.test(password);
+    }
+}
+
+const passwordValidator = [
+    {
+        validator: validPassword, message: 'Password must have one uppercase, one lowercase, one number and special character'
+    },
+    {
+        validator: passwordLengthChecker, message: 'Password length must be between 8 to 25 characters'
+    }
+]
+
 const usernameValidators = [{
     validator: usernameLengthChecker, message: 'Username length should be atleast 3 characters and atmax 15 characters'
 }, {
@@ -50,7 +83,7 @@ const usernameValidators = [{
 
 ]
 
-const emilValidators = [
+const emailValidators = [
     {
         validator: emailLengthChecker, message: 'Email length should be atleast 5 character and atmax 15 character'
     }, {
@@ -59,9 +92,9 @@ const emilValidators = [
 ]
 
 const userSchema = new Schema({
-    email: { type: String, required: true, unique: true, lowercase: true, validate: emilValidators },
-    username: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true }
+    email: { type: String, required: true, unique: true, lowercase: true, validate: emailValidators },
+    username: { type: String, required: true, unique: true, lowercase: true, validate: usernameValidators },
+    password: { type: String, required: true, validate: passwordValidator }
 });
 
 userSchema.pre('save', function (next) {
