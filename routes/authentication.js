@@ -5,10 +5,46 @@ module.exports = (router) => {
         // req.body.email;
         // req.body.username;
         // req.body.password;
-        if(!req.body.email){
-            res.json({success:false,message})
+        if (!req.body.email) {
+            res.json({ success: false, message: 'Please provide valid email' });
+        } else {
+            if (!req.body.username) {
+                res.json({ success: false, message: 'Please provide valid username' });
+            }
+            else {
+                if (!req.body.password) {
+                    res.json({ success: false, message: 'Please provide password' });
+                } else {
+                    //console.log(req.body);
+                    let user = new User({
+                        email: req.body.email.toLowerCase(),
+                        username: req.body.username.toLowerCase(),
+                        password: req.body.password
+                    });
+                    user.save((err) => {
+                        if (err) {
+                            if (err.code === 11000) {
+                                res.json({ success: false, message: 'Oops! Duplicate entry, user already exist in system' });
+                            }
+                        }
+                        if (err) {
+                            if (err.errors) {
+                                if (err.errors.email) {
+                                    res.json({ success: false, message: err.errors.email.message })
+                                }
+                            } else {
+                                res.json({ success: false, message: 'Oops! Could not save user. Error: ', err });
+                            }
+
+                        } else {
+                            res.json({ success: true, message: 'User created successfully!' });
+                        }
+                    });
+
+                }
+
+            }
         }
-        res.send('Hello world!');
     })
     return router;
 }
