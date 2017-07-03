@@ -37,12 +37,22 @@ let validUsername = (username) => {
         return false;
     } else {
         const regExp = new RegExp(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i);
+        return regExp.test(username);
     }
 };
 
+const usernameValidators = [{
+    validator: usernameLengthChecker, message: 'Username length should be atleast 3 characters and atmax 15 characters'
+}, {
+    validator: validUsername, message: 'Username must not have special character'
+}
+
+
+]
+
 const emilValidators = [
     {
-        validator: emailLengthChecker, message: 'Enter valid email'
+        validator: emailLengthChecker, message: 'Email length should be atleast 5 character and atmax 15 character'
     }, {
         validator: validEmailChecker, message: 'Please enter valid email'
     }
