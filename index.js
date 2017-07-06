@@ -5,6 +5,7 @@ const port = 3000;
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const authentication = require('./routes/authentication')(router);
+const cors = require('cors');
 var bodyParser = require('body-parser');
 
 mongoose.Promise = global.Promise;
@@ -20,6 +21,16 @@ mongoose.connect(config.uri, (err) => {
 app.get('/', function (req, res) {
     res.send('Hello World! This is awesome!');
 })
+
+// var corsOptions = {
+//     origin : '',
+//     optionsSuccessStatus : 200
+// }
+
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/authentication', authentication);

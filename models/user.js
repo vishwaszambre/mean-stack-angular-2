@@ -60,7 +60,7 @@ let validPassword = () => {
     if (!password) {
         return false;
     } else {
-        const regExp = new RegExp(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[/d])(?=.*?[\W]).{8,35}$/);
+        const regExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{5,})/);
         return regExp.test(password);
     }
 }
@@ -94,7 +94,8 @@ const emailValidators = [
 const userSchema = new Schema({
     email: { type: String, required: true, unique: true, lowercase: true, validate: emailValidators },
     username: { type: String, required: true, unique: true, lowercase: true, validate: usernameValidators },
-    password: { type: String, required: true, validate: passwordValidator }
+    // password: { type: String, required: true, validate: passwordValidator }
+    password: { type: String, required: true }
 });
 
 userSchema.pre('save', function (next) {
