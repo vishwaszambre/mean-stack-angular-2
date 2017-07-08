@@ -111,7 +111,7 @@ userSchema.pre('save', function (next) {
     });
 });
 
-userSchema.method.comparePassword = (password) => {
+userSchema.method.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 }
 

@@ -1,4 +1,4 @@
-const User = require('../models/user');
+var User = require('../models/user');
 
 module.exports = (router) => {
     router.post('/register', (req, res) => {
@@ -97,5 +97,33 @@ module.exports = (router) => {
         }
 
     });
+
+    router.post('/login', (req, res) => {
+        if (!req.body.username) {
+            res.json({ success: false, message: 'No username provided' });
+        } else {
+            if (!req.body.password) {
+                res.json({ success: false, message: 'No password provided' });
+            } else {
+                User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+                    if (err) {
+                        res.json({ success: false, message: err });
+                    } else {
+                        if (!user) {
+                            res.json({ success: false, message: 'Username not found' })
+                        } else {
+                            const validPassword = user.comparePassword(req.body.password);
+                            if (!validPassword) {
+                                res.json({ success: false, message: 'Password invalid' });
+                            } else {
+                                res.json({ success: true, message: 'Password valid' });
+                            }
+                        }
+                    }
+                })
+            }
+        }
+    });
+
     return router;
 }
