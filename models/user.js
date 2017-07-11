@@ -51,7 +51,7 @@ let passwordLengthChecker = () => {
         return false;
     } else {
         if (password.length < 8 || password.length < 25) {
-            return false
+            return false;
         }
     }
 }
@@ -94,9 +94,13 @@ const emailValidators = [
 const userSchema = new Schema({
     email: { type: String, required: true, unique: true, lowercase: true, validate: emailValidators },
     username: { type: String, required: true, unique: true, lowercase: true, validate: usernameValidators },
-    // password: { type: String, required: true, validate: passwordValidator }
+    //password: { type: String, required: true, validate: passwordValidator }
     password: { type: String, required: true }
 });
+
+userSchema.method.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+}
 
 userSchema.pre('save', function (next) {
     if (!this.isModified('password'))
@@ -110,9 +114,5 @@ userSchema.pre('save', function (next) {
         }
     });
 });
-
-userSchema.method.comparePassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
-}
 
 module.exports = mongoose.model('User', userSchema);
