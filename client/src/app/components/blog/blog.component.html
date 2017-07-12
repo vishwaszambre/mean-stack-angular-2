@@ -1,0 +1,50 @@
+<h1 class="page-header">Blog Feed</h1>
+
+<!--<div class="row show-hide-message">
+
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+
+</div>-->
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+<button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Reload</button>
+<br />
+<br />
+<div *ngIf="!newPost">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Post Title</h3>
+      <div class="panel-body">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+        text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+        book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+        unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+        more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </div>
+      <!--Start of footer -->
+      <div class="panel-footer text-primary">
+        <p><strong>Posted by: </strong>John Smith</p>
+        <p><strong>Date: </strong>June 22, 2017</p>
+        <div>
+          <p><strong>Likes: </strong>21</p>
+          <p><strong>Dislikes: </strong>12</p>
+        </div>
+        <a href="#"><button type="button" name="button" class="btn btn-sm btn-info" >Edit</button></a>
+        <a href="#"><button type="button" name="button" class="btn btn-sm btn-danger" >Delete</button></a>
+        <div class="dropdown">
+          <button type="button" name="button" class="btn btn-sm btn-success">
+            <span class="glyphicon glyphicon-thumbs-up"></span>  |  Likes: 21
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Gorge</a>
+            <a href="#">Smith</a>
+            <a href="#">Hari</a>
+          </div>
+
+        </div>
+
+      </div>
+      <!--End of footer -->
+    </div>
+  </div>
